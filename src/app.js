@@ -11,7 +11,7 @@ const restaurantsCollection = require("../assets/restaurants_collection.json");
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get("/", function () {
+app.get("/", function (_, res) {
   res.send("All inclusive, E-com, API");
 });
 
