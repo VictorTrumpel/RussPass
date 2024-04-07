@@ -1,10 +1,13 @@
 from langchain_elasticsearch import ElasticsearchStore
 from langchain_community.embeddings.gigachat import GigaChatEmbeddings
 from langchain_core.documents import Document
+from dotenv import load_dotenv
 import os
 import json
 
-embeddings = GigaChatEmbeddings(credentials="Njg2MjY3ZTgtZDMxZC00NzU2LTg0MzctMDkzMDFhYjI0NGVkOjFhNGZkYWNkLTVhNDMtNGI3MS1iNWVmLWMyOGQ4N2RjZTE1Mw==", verify_ssl_certs=False)
+client_secret = os.getenv("CLIENT_SECRET")
+
+embeddings = GigaChatEmbeddings(credentials=client_secret, verify_ssl_certs=False)
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
