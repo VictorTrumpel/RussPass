@@ -66,6 +66,41 @@ app.post("/ask_lingvo_model", async (req, res) => {
   }
 });
 
+app.get("/get_by_id", async (req, res) => {
+  try {
+    const { ids: queryIds } = req.query;
+
+    const ids = queryIds.split(",");
+
+    const cardCollection = [];
+
+    for (const id of ids) {
+      const isEventCard = eventCollectionMap.has(id);
+      const isExcursionCard = excursionCollectionMap.has(id);
+      const isRestaurantCard = restaurantsCollectionMap.has(id);
+
+      if (isEventCard) {
+        cardCollection.push(eventCollectionMap.get(id));
+        continue;
+      }
+
+      if (isExcursionCard) {
+        cardCollection.push(excursionCollectionMap.get(id));
+        continue;
+      }
+
+      if (isRestaurantCard) {
+        cardCollection.push(restaurantsCollectionMap.get(id));
+        continue;
+      }
+    }
+
+    res.json(cardCollection);
+  } catch {
+    res.status(500);
+  }
+});
+
 app.listen(3000, () => {
   console.log("server running on 3000");
 });
